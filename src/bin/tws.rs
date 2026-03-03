@@ -147,4 +147,3 @@ fn check_for_win(grid: &[Option<char>], patterns: [[usize;3];8]) -> Option<char>
     };
     return None
 }
-// test
