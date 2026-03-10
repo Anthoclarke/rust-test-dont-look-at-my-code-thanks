@@ -66,7 +66,7 @@ fn main () {
                 }
             };
         };
-        println!("")
+        println!("");
         match read_input("Enter pour rejouer, Q pour arrêter: ").to_lowercase().as_str() {
             "q" => { break; },
             _ => {}
