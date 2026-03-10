@@ -56,7 +56,7 @@ impl Game {
         for [a,b,c] in patterns {
             if self.grid[a] != None && self.grid[b] == self.grid[a] && self.grid[c] == self.grid[b] {
                 if let Some(char) = self.grid[a] {
-                    println!("Joueur {} ({}) Gagne!", if self.turn {1} else {2}, char);
+                    println!("Joueur {} ({}) Gagne!", if self.grid[a] == Some(self.p1) {1} else {2}, char);
                     return true;
                 }
             }
@@ -64,24 +64,6 @@ impl Game {
         return false;
     }
 }
-
-fn main() {
-    let mut game = Game::new();
-    game.show_board();
-    while game.turns < 9 {
-        game.turns += 1;
-        game.place();
-        if game.check_for_win() {
-            break;
-        }
-        else {
-            if game.turns == 9 {
-                println!("Égalité.");
-            }
-        }
-    }
-}
-
 
 fn read_input(prompt: &str) -> String {
     print!("{}",prompt);
@@ -97,7 +79,7 @@ fn set_char(prompt: &str, ) -> char {
             return char;
         }
         else {
-            println!("Yo genre une seule affaire j'écris pas tout ça");
+            println!("Yo genre un seul symbole c'est tout cque jte demande");
         }
     }
 }
@@ -109,5 +91,28 @@ fn randomize_first_turn() -> bool {
     }
     else {
         return false
+    }
+}
+
+fn main() {
+    let mut game = Game::new();
+    game.show_board();
+    loop {
+        while game.turns < 9 {
+            game.turns += 1;
+            game.place();
+            if game.check_for_win() {
+                break;
+            }
+            else {
+                if game.turns == 9 {
+                    println!("Égalité.");
+                }
+            }
+        }
+        match read_input("Enter pour recommencer, Q pour quitter").to_lowercase().as_str() {
+            "q" => { break; },
+            _ => { continue; }
+        }
     }
 }
